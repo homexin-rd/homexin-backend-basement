@@ -1,28 +1,26 @@
-# Upgrade Version in Production Steps
+# Production Version Upgrade Manual
 
 
 
 ## Upgrade in Production
-1. Merge codes into Master Branch (for both backend repo & warehouse repo).
-2. Upgrade config warehouse version on both `homexin-prod` and `homexin-prod-cron` servers.
-3. Check the `node`, `npm` and `yarn` versions on both `homexin-prod` and `homexin-prod-cron` servers.
-4. Pull to upgrade the production version on both `homexin-prod` and `homexin-prod-cron` servers.
-5. Clean up `node_modules/` and reinstall all packages `$ yarn install` on both `homexin-prod` and `homexin-prod-cron` servers.
-6. Postpone pm2 process on `homexin-prod-cron` machine while restart pm2 process on `homexin-prod` servver.
-7. Ensure all process work well on `homexin-prod` server, and then restart process on `homexin-prod-cron` server and check it.
-8. Save pm2 process `$ pm2 save` (c.f. `backend/README.md`)
+1. Merge codes into Master Branch (for backend repo & warehouse repos).
+2. Upgrade config warehouse (i.e., `homexin-backend-configuration`) version on both `homexin-prod` and `homexin-prod-cron` servers.
+2. Upgrade static data warehouse (i.e., `homexin-backend-static-data`) version on both `homexin-prod` and `homexin-prod-cron` servers.
+3. Start services by running docker containers (refer to `README.md` in each repo).
 
 
-## Follow-up TODO
-1. Open new a Swagger version.
-2. Write a draft for the release for both backend repo & warehouse repo.
+
+## Follow-ups to the Upgrade
+1. Update/sync files in the `homexin-backend-postman` repo (e.g., GraphQL schema file and errorCode file).
+2. Write drafts for the release for backend repo & warehouse repos.
 3. Update versions pinned on Slack.
-4. Test / Hotfix.
-5. Confirm production version: tag and release for both backend repo & warehouse repo.
-7. Clean unused branches for both backend repo & warehouse repo.
+4. Announce the upgrade in Slack channels.
+5. Test / Hotfix.
+6. Confirm production version: tag and release for backend repo & warehouse repos.
+7. Clean merged/unused branches of backend repo & warehouse repos.
 
 
-## Hot-fix Steps
+## How to Handle a Hot-fix?
 1. Create a new hot-fix branch from `master` branch and develop hot fixes on it.
 2. Open a Pull Request for merging the hot-fix branch to `master` branch.
-3. Open a Pull Request for merging the `master` branch to `develop` branch to guarantee a conflict-free development.
+3. Open a Pull Request for merging the `master` branch to `develop` branch to guarantee a conflict-free process.
